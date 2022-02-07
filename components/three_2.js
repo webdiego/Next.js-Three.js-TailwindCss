@@ -11,16 +11,16 @@ export default function Three() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+    scene.background = new THREE.Color(0xffffff);
     canvas.appendChild(renderer.domElement);
 
     return () => canvas.removeChild(renderer.domElement);
   }, []);
 
   useEffect(() => {
-
-
-    const geometryS = new THREE.SphereGeometry(1, 18, 18);
+    const geometryS = new THREE.DodecahedronGeometry(10, 1);
     const materialS = new THREE.MeshStandardMaterial({ color: `0xffffff`, wireframe: true });
     materialS.roughness = 0.4;
     const sphere = new THREE.Mesh(geometryS, materialS);
@@ -40,8 +40,8 @@ export default function Three() {
     scene.add(spotLight);
 
     const sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: window.innerWidth / 2,
+      height: window.innerHeight / 2,
     };
 
     scene.add(sphere);
@@ -51,19 +51,22 @@ export default function Three() {
     let tick = function () {
       requestAnimationFrame(tick);
 
-    
-      sphere.rotation.x += 0.03;
-      sphere.rotation.y += 0.03;
-      spotLight.rotation.x += 0.05;
-      spotLight.rotation.y += 0.05;
+      sphere.rotation.x += 0.003;
+      sphere.rotation.y += 0.003;
 
       renderer.render(scene, camera);
     };
 
     window.addEventListener('resize', () => {
-      // Update sizes
-      sizes.width = window.innerWidth;
-      sizes.height = window.innerHeight;
+      let iw = window.innerWidth;
+
+      if (iw >= 768) {
+        sizes.width = window.innerWidth / 2;
+        sizes.height = window.innerHeight / 2;
+      } else {
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
+      }
 
       // Update camera
       camera.aspect = sizes.width / sizes.height;
@@ -75,7 +78,7 @@ export default function Three() {
 
     tick();
 
-    return () => scene.remove( sphere);
+    return () => scene.remove(sphere);
   }, []);
 
   return <div id="canvas" className="m-2" ref={canvasRef}></div>;
