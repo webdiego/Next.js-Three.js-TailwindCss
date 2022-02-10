@@ -3,11 +3,12 @@ import Image from 'next/image';
 import Three from '../components/three';
 import Three_2 from '../components/three_2';
 import Three_3 from '../components/three_3';
-
+import Three_4 from '../components/three_4';
 import { useState } from 'react';
 
 export default function Home() {
   const [color, setColor] = useState(Math.floor(Math.random() * 16777215).toString(16));
+  const [lightsOn, setLightsOn] = useState(true);
 
   return (
     <div>
@@ -55,6 +56,12 @@ export default function Home() {
       <div className="flex w-full flex-col md:flex-row items-center justify-center  overflow-hidden mt-12">
         <Three_2 />
         <div className="flex flex-col items-center md:w-1/2 px-12">
+          <h1
+            className="text-6xl text-white py-8 font-bold
+        text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-blue-400 self-start"
+          >
+            Half width
+          </h1>
           <p className="text-black">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
             has been the industrys standard dummy text ever since the 1500s, when an unknown printer
@@ -67,13 +74,14 @@ export default function Home() {
         </div>
       </div>
       {/* Three_3 */}
+
       <div className="flex w-full flex-col  items-center justify-center  overflow-hidden mt-12">
         <div className="flex flex-col items-center  px-12 my-12">
           <h1
-            className="text-4xl md:text-6xl text-white text-start py-8 font-bold
-        text-transparent bg-clip-text bg-gradient-to-br from-gray-600 to-white"
+            className="text-6xl text-white text-start py-8 font-bold
+        text-transparent bg-clip-text bg-gradient-to-br from-green-400 to-pink-400"
           >
-            Next.js + Three.js + Tailwindcss
+            Half height + matcap + gsap
           </h1>
           <p className="text-black">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -85,7 +93,47 @@ export default function Home() {
             software like Aldus PageMaker including versions of Lorem Ipsum.
           </p>
         </div>
+        <div className="h-px w-full bg-black mx-auto self-cente " />
+        <div className="h-2 w-full bg-black mx-auto self-center my-2" />
         <Three_3 />
+        <div className="h-2 w-full bg-black mx-auto self-cente my-2" />
+        <div className="h-[5px] w-full bg-black mx-auto self-center" />
+        <div className="h-[3px] w-full bg-black mx-auto self-center mt-1" />
+      </div>
+
+      <div
+        className={`flex w-full flex-col md:flex-row items-center justify-center  overflow-hidden mt-12  mb-8 ${
+          lightsOn ? 'bg-white' : 'bg-black'
+        }`}
+      >
+        <div className="flex flex-col items-center md:w-1/2 px-12">
+          <h1
+            className={`text-6xl py-8 font-bold self-start ${
+              lightsOn
+                ? 'text-black'
+                : 'text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-blue-400'
+            }`}
+          >
+            Half width
+          </h1>
+          <p className={` ${lightsOn ? 'text-black' : 'text-white'}`}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industrys standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting, remaining
+            essentially unchanged. It was popularised in the 1960s with the release of Letraset
+            sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+            software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+          {lightsOn ? (
+            <button onClick={() => setLightsOn(!lightsOn)}>Lights off</button>
+          ) : (
+            <button className="text-white border-2 p-2" onClick={() => setLightsOn(!lightsOn)}>
+              Lights on
+            </button>
+          )}
+        </div>
+        <Three_4 lightsOn={lightsOn} />
       </div>
     </div>
   );

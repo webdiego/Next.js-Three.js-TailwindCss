@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "gsap": "^3.9.1",
     "lil-gui": "^0.16.0",
     "next": "12.0.10",
     "react": "17.0.2",

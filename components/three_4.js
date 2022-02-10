@@ -1,29 +1,35 @@
 import { useEffect, useRef } from 'react';
-
+import gsap from 'gsap';
 import * as THREE from 'three';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
-export default function Three() {
+export default function Three_4({ lightsOn }) {
   const canvasRef = useRef(null);
+  let bg = lightsOn ? '#ffff' : '#000000';
 
   useEffect(() => {
     const canvas = canvasRef.current;
 
     renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = new THREE.Color(bg);
     canvas.appendChild(renderer.domElement);
 
     return () => canvas.removeChild(renderer.domElement);
-  }, []);
+  }, [bg]);
 
   useEffect(() => {
-    const geometryS = new THREE.DodecahedronGeometry(10, 1);
-    const materialS = new THREE.MeshStandardMaterial({ color: `0xffffff`, wireframe: true });
-    materialS.roughness = 0.4;
+    const geometryS = new THREE.DodecahedronGeometry(4, 1);
+    const geometryXs = new THREE.DodecahedronGeometry(1, 1);
+
+    const materialS = new THREE.MeshToonMaterial({ color: `#c168fd` });
+    materialS.metalness = 0.45;
+    materialS.roughness = 0.65;
+
     const sphere = new THREE.Mesh(geometryS, materialS);
+    const smallSphere = new THREE.Mesh(geometryXs, materialS);
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
@@ -44,9 +50,17 @@ export default function Three() {
       height: window.innerHeight / 2,
     };
 
+    for (let x = 0; x <= sizes.width; x += 20) {
+      for (let y = 0; y <= sizes.height; y += 20) {
+        const smallSphere = new THREE.Mesh(geometryXs, materialS);
+        scene.add(smallSphere);
+        smallSphere.position.x = x;
+        smallSphere.position.y = y;
+      }
+    }
     scene.add(sphere);
-    camera.position.z = 2;
-    sphere.position.x = 1;
+    camera.position.z = 212;
+    camera.lookAt(sizes.width, sizes.height);
 
     let tick = function () {
       requestAnimationFrame(tick);
@@ -59,7 +73,7 @@ export default function Three() {
 
     window.addEventListener('resize', () => {
       let iw = window.innerWidth;
-
+      camera.lookAt(sphere.position);
       if (iw >= 768) {
         sizes.width = window.innerWidth / 2;
         sizes.height = window.innerHeight / 2;
@@ -78,7 +92,7 @@ export default function Three() {
 
     tick();
 
-    return () => scene.remove(sphere);
+    return () => scene.remove(sphere, smallSphere);
   }, []);
 
   return <div id="canvas" className="m-2" ref={canvasRef}></div>;
