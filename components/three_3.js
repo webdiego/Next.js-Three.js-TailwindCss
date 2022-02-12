@@ -16,10 +16,11 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
 const renderer = new THREE.WebGLRenderer();
 let controls;
 
-export default function Three() {
+export default function Three_3() {
   const canvasRef = useRef(null);
 
   useEffect(() => {

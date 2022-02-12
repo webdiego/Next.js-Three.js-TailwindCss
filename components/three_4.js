@@ -1,14 +1,34 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
 import * as THREE from 'three';
+import gsap from 'gsap';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
+const textureLoader = new THREE.TextureLoader();
+
+const P_1 = textureLoader.load('/points/circle_05.png');
+const P_2 = textureLoader.load('/points/window_02.png');
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
 export default function Three_4({ lightsOn }) {
   const canvasRef = useRef(null);
+
   let bg = lightsOn ? '#ffff' : '#000000';
+  let randomValue = Math.round(Math.random());
+  let color;
+
+  if (lightsOn) {
+    color = '#000';
+  } else {
+    if (randomValue === 1) {
+      color = '#ae62af';
+    } else {
+      color = '#828CDD';
+    }
+  }
+
+  let bgParticles = color;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,64 +36,61 @@ export default function Three_4({ lightsOn }) {
     renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
     scene.background = new THREE.Color(bg);
     canvas.appendChild(renderer.domElement);
+    let controls = new OrbitControls(camera, canvas);
 
-    return () => canvas.removeChild(renderer.domElement);
-  }, [bg]);
+    const particlesGeometry = new THREE.BufferGeometry();
 
-  useEffect(() => {
-    const geometryS = new THREE.DodecahedronGeometry(4, 1);
-    const geometryXs = new THREE.DodecahedronGeometry(1, 1);
+    let count;
+    if (lightsOn) {
+      count = 500;
+    } else {
+      count = 5000;
+    }
 
-    const materialS = new THREE.MeshToonMaterial({ color: `#c168fd` });
-    materialS.metalness = 0.45;
-    materialS.roughness = 0.65;
+    const positions = new Float32Array(count * 3);
 
-    const sphere = new THREE.Mesh(geometryS, materialS);
-    const smallSphere = new THREE.Mesh(geometryXs, materialS);
+    for (let i = 0; i < count * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 10;
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    //MATERIAL
 
-    const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.3);
-    directionalLight.position.set(-1, 0.25, 0);
-    scene.add(directionalLight);
+    let particlesMaterial = new THREE.PointsMaterial({ color: bgParticles });
+    particlesMaterial.size = 0.1;
+    particlesMaterial.sizeAttenuation = true;
+    particlesMaterial.transparent = true;
+    particlesMaterial.depthTest = false;
 
-    const hemisphereLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.7);
-    scene.add(hemisphereLight);
+    if (!lightsOn) {
+      particlesMaterial.blending = THREE.AdditiveBlending;
+      particlesMaterial.alphaMap = P_1;
+    } else {
+      particlesMaterial.alphaMap = P_2;
+    }
 
-    const spotLight = new THREE.SpotLight(0x78ff00, 0.5, 10, Math.PI * 0.1, 0.25, 1);
-    spotLight.position.set(0, 4, 3);
-    scene.add(spotLight);
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    camera.position.z = 3;
 
     const sizes = {
       width: window.innerWidth / 2,
       height: window.innerHeight / 2,
     };
-
-    for (let x = 0; x <= sizes.width; x += 20) {
-      for (let y = 0; y <= sizes.height; y += 20) {
-        const smallSphere = new THREE.Mesh(geometryXs, materialS);
-        scene.add(smallSphere);
-        smallSphere.position.x = x;
-        smallSphere.position.y = y;
-      }
-    }
-    scene.add(sphere);
-    camera.position.z = 212;
-    camera.lookAt(sizes.width, sizes.height);
-
+    console.log(particles);
     let tick = function () {
       requestAnimationFrame(tick);
+      particles.rotation.y += 0.005;
+      particles.rotation.x += 0.005;
 
-      sphere.rotation.x += 0.003;
-      sphere.rotation.y += 0.003;
-
+      controls.update();
       renderer.render(scene, camera);
     };
 
     window.addEventListener('resize', () => {
       let iw = window.innerWidth;
-      camera.lookAt(sphere.position);
+
       if (iw >= 768) {
         sizes.width = window.innerWidth / 2;
         sizes.height = window.innerHeight / 2;
@@ -92,8 +109,8 @@ export default function Three_4({ lightsOn }) {
 
     tick();
 
-    return () => scene.remove(sphere, smallSphere);
-  }, []);
+    return () => scene.remove(particles);
+  }, [bg, bgParticles, randomValue, lightsOn]);
 
   return <div id="canvas" className="m-2" ref={canvasRef}></div>;
 }

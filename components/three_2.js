@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-
 import * as THREE from 'three';
 
 const scene = new THREE.Scene();
@@ -13,7 +12,7 @@ export default function Three() {
     const canvas = canvasRef.current;
 
     renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = new THREE.Color('0xffffff');
     canvas.appendChild(renderer.domElement);
 
     return () => canvas.removeChild(renderer.domElement);
@@ -25,7 +24,7 @@ export default function Three() {
     materialS.roughness = 0.4;
     const sphere = new THREE.Mesh(geometryS, materialS);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight("0xffffff", 0.5);
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.3);

@@ -33,7 +33,7 @@ export default function Home() {
       >
         <Three color={color} />
         <div className="flex flex-col items-center p-12  absolute top-0">
-          <h1 className="text-white text-center -mb-12 text-xs">Created by</h1>
+          <h1 className="text-white text-center -mb-12 text-xs">Created by someone in</h1>
           <Image src={'/black.svg'} height="220" width="220" alt="black" />
         </div>
       </div>
@@ -100,9 +100,9 @@ export default function Home() {
         <div className="h-[5px] w-full bg-black mx-auto self-center" />
         <div className="h-[3px] w-full bg-black mx-auto self-center mt-1" />
       </div>
-
+      {/* Three_4 */}
       <div
-        className={`flex w-full flex-col md:flex-row items-center justify-center  overflow-hidden mt-12  mb-8 ${
+        className={`flex w-full flex-col md:flex-row items-center justify-center overflow-hidden my-12 py-4 ${
           lightsOn ? 'bg-white' : 'bg-black'
         }`}
       >
@@ -120,18 +120,19 @@ export default function Home() {
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
             has been the industrys standard dummy text ever since the 1500s, when an unknown printer
             took a galley of type and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting, remaining
-            essentially unchanged. It was popularised in the 1960s with the release of Letraset
-            sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-            software like Aldus PageMaker including versions of Lorem Ipsum.
+            only five centuries, but also the leap into electronic typesetting.
           </p>
-          {lightsOn ? (
-            <button onClick={() => setLightsOn(!lightsOn)}>Lights off</button>
-          ) : (
-            <button className="text-white border-2 p-2" onClick={() => setLightsOn(!lightsOn)}>
-              Lights on
-            </button>
-          )}
+          <div className="self-start my-12">
+            {lightsOn ? (
+              <button className=" border-2 border-black p-2" onClick={() => setLightsOn(!lightsOn)}>
+                Lights off
+              </button>
+            ) : (
+              <button className="text-white border-2 p-2" onClick={() => setLightsOn(!lightsOn)}>
+                Lights on
+              </button>
+            )}
+          </div>
         </div>
         <Three_4 lightsOn={lightsOn} />
       </div>
