@@ -83,11 +83,11 @@ export default function Home() {
       </div>
       {/* Three_3 */}
 
-      <div className="flex w-full flex-col  items-center justify-center  overflow-hidden mt-12">
+      <div className="flex w-full flex-col  items-center justify-center  overflow-hidden mt-12 ">
         <div className="flex flex-col items-center  px-12 my-12">
           <h1
             className="text-6xl text-white text-start py-8 font-bold
-        text-transparent bg-clip-text bg-gradient-to-br from-green-400 to-pink-400"
+        text-transparent bg-clip-text bg-gradient-to-br from-[#aefbfd] to-[#FF99FF]"
           >
             Half height + matcap + gsap
           </h1>
@@ -103,7 +103,9 @@ export default function Home() {
         </div>
         <div className="h-px w-full bg-black mx-auto self-cente " />
         <div className="h-2 w-full bg-black mx-auto self-center my-2" />
-        <Three_3 />
+        <div className="bg-gradient-to-l from-[#aefbfd] to-[#FF99FF]">
+          <Three_3 />
+        </div>
         <div className="h-2 w-full bg-black mx-auto self-cente my-2" />
         <div className="h-[5px] w-full bg-black mx-auto self-center" />
         <div className="h-[3px] w-full bg-black mx-auto self-center mt-1" />
@@ -145,14 +147,19 @@ export default function Home() {
         <Three_4 lightsOn={lightsOn} />
       </div>
 
+      <div className="h-2 w-full bg-gradient-to-br from-pink-600 to-yellow-400 mx-auto self-cente my-2" />
+      <div className="h-[5px] w-full bg-gradient-to-br from-pink-600 to-yellow-400 mx-auto self-center" />
+      <div className="h-[3px] w-full bg-gradient-to-br from-pink-600 to-yellow-400 mx-auto self-center mt-1" />
+      {/* Three_5 */}
+
       <div
-        className={`flex w-full flex-col items-center justify-center overflow-hidden my-12 py-4 `}
+        className={`flex w-full flex-col items-center justify-center overflow-hidden mt-12  px-12`}
       >
-        <div className="flex flex-row items-center md:w-2/3 ">
+        <div className="flex flex-col md:flex-row justify-between items-center md:w-1/2 mb-12">
           <h1
-            className={`text-6xl py-8 font-bold self-start text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-yellow-400`}
+            className={`text-6xl py-8 font-bold self-start text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-yellow-400 mr-5`}
           >
-            yeyeey
+            wow
           </h1>
           <p className={`text-black`}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -162,6 +169,11 @@ export default function Home() {
           </p>
         </div>
         <Three_5 />
+      </div>
+      <div className="bg-black  py-18 w-full flex justify-center items-center ">
+        <a className="my-4" href="https://github.com/webdiego">
+          <Image src={'/GitHub.svg'} height="42" width="42" alt="GitHub" />
+        </a>
       </div>
     </div>
   );

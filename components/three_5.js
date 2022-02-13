@@ -9,6 +9,7 @@ const gltfLoader = new GLTFLoader();
 const textureLoader = new THREE.TextureLoader();
 const P_1 = textureLoader.load('/points/circle_05.png');
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
 export default function Three() {
   const canvasRef = useRef(null);
 
@@ -16,14 +17,10 @@ export default function Three() {
     const canvas = canvasRef.current;
     renderer.setSize(window.innerWidth, window.innerHeight);
     canvas.appendChild(renderer.domElement);
+
+    let model;
     let controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
-    return () => canvas.removeChild(renderer.domElement);
-  }, []);
-
-  useEffect(() => {
-    let model;
-
     gltfLoader.load('/model/moon/scene.gltf', (gltf) => {
       console.log(gltf);
       model = gltf.scene;
@@ -50,12 +47,15 @@ export default function Three() {
     particlesMaterial.size = 0.01;
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
-
-    camera.position.z = 6;
+    let z = 6;
+    camera.position.z = z;
 
     let tick = function () {
       requestAnimationFrame(tick);
-      camera.position.z -= 0.001;
+      camera.position.z -= 0.0005;
+      camera.position.x += 0.0005;
+
+      controls.update();
       renderer.render(scene, camera);
     };
 

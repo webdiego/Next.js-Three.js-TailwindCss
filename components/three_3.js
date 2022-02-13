@@ -10,7 +10,7 @@ const M_2 = textureLoader.load('/matcap/M_2.png');
 const M_3 = textureLoader.load('/matcap/M_3.png');
 const M_4 = textureLoader.load('/matcap/M_4.png');
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 let controls;
 const camera = new THREE.PerspectiveCamera(
   95,
@@ -21,7 +21,7 @@ const camera = new THREE.PerspectiveCamera(
 
 export default function Three_3() {
   const canvasRef = useRef(null);
-
+  renderer.setClearColor(0x000000, 0.0);
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -29,12 +29,29 @@ export default function Three_3() {
 
     canvas.appendChild(renderer.domElement);
     controls = new OrbitControls(camera, canvas);
+
+    var ambientLight = new THREE.AmbientLight(0x999999);
+    scene.add(ambientLight);
+    var lights = [];
+    lights[0] = new THREE.DirectionalLight(0xffffff, 1);
+    lights[0].position.set(1, 0, 0);
+    lights[1] = new THREE.DirectionalLight(0x11e8bb, 1);
+    lights[1].position.set(0.75, 1, 0.5);
+    lights[2] = new THREE.DirectionalLight(0x8200c9, 1);
+    lights[2].position.set(-0.75, -1, 0.5);
+    scene.add(lights[0]);
+    scene.add(lights[1]);
+    scene.add(lights[2]);
+
     const geometryI = new THREE.IcosahedronGeometry(10, 0);
     const geometryT = new THREE.TetrahedronGeometry(3, 0);
 
     const materialI = new THREE.MeshMatcapMaterial();
     const materialT = new THREE.MeshMatcapMaterial();
-
+    var mat2 = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      shading: THREE.FlatShading,
+    });
     const geometry = new THREE.TorusGeometry(14, 0.8, 16, 100);
     const materialK = new THREE.MeshMatcapMaterial();
 
@@ -42,7 +59,7 @@ export default function Three_3() {
     materialT.matcap = M_2;
     materialK.matcap = M_3;
 
-    const ico = new THREE.Mesh(geometryI, materialI);
+    const ico = new THREE.Mesh(geometryI, mat2);
     const tetra = new THREE.Mesh(geometryT, materialT);
     const tetra_2 = new THREE.Mesh(geometryT, materialT);
     const tetra_3 = new THREE.Mesh(geometryT, materialT);
@@ -65,7 +82,7 @@ export default function Three_3() {
       height: window.innerHeight / 2,
     };
 
-    camera.position.z = 32;
+    camera.position.z = 22;
     let animation = gsap.timeline({ repeat: -1, yoyo: true });
 
     animation
