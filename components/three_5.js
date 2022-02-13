@@ -20,7 +20,11 @@ export default function Three() {
 
     let model;
     let controls = new OrbitControls(camera, canvas);
+    controls.maxPolarAngle = Math.PI * 0.5;
+    controls.minDistance = 2;
+    controls.maxDistance = 10;
     controls.enableDamping = true;
+
     gltfLoader.load('/model/moon/scene.gltf', (gltf) => {
       console.log(gltf);
       model = gltf.scene;

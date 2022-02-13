@@ -50,7 +50,7 @@ export default function Three_3() {
     const materialT = new THREE.MeshMatcapMaterial();
     var mat2 = new THREE.MeshPhongMaterial({
       color: 0xffffff,
-      shading: THREE.FlatShading,
+      flatShading: true,
     });
     const geometry = new THREE.TorusGeometry(14, 0.8, 16, 100);
     const materialK = new THREE.MeshMatcapMaterial();
