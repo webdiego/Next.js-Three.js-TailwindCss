@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
 const renderer = new THREE.WebGLRenderer();
 const gltfLoader = new GLTFLoader();
 const textureLoader = new THREE.TextureLoader();
@@ -13,6 +13,12 @@ export default function Three() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
     const canvas = canvasRef.current;
     renderer.setSize(window.innerWidth, window.innerHeight);
     canvas.appendChild(renderer.domElement);
@@ -46,12 +52,8 @@ export default function Three() {
 
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    let particlesMaterial = new THREE.PointsMaterial({ color: '#f2ff' });
+    let particlesMaterial = new THREE.PointsMaterial();
     particlesMaterial.size = 0.01;
-    // particlesMaterial.sizeAttenuation = true;
-    // particlesMaterial.transparent = true;
-    // particlesMaterial.depthTest = false;
-    // particlesMaterial.blending = THREE.AdditiveBlending;
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
 

@@ -3,13 +3,19 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
 const renderer = new THREE.WebGLRenderer();
 
 export default function Three({ color }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
     const canvas = canvasRef.current;
     renderer.setSize(window.innerWidth, window.innerHeight);
     canvas.appendChild(renderer.domElement);
@@ -19,7 +25,7 @@ export default function Three({ color }) {
 
   useEffect(() => {
     const geometryC = new THREE.BoxGeometry(1, 1, 1);
-    const materialC = new THREE.MeshNormalMaterial()
+    const materialC = new THREE.MeshNormalMaterial();
     const cube = new THREE.Mesh(geometryC, materialC);
 
     const geometryS = new THREE.SphereGeometry(1, 32, 32);
