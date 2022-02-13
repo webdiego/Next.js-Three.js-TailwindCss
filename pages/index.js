@@ -1,10 +1,5 @@
 import Head from 'next/head';
 import Image from 'next/image';
-// import Three from '../components/three';
-// import Three_2 from '../components/three_2';
-// import Three_3 from '../components/three_3';
-// import Three_4 from '../components/three_4';
-// import Three_5 from '../components/three_5';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -13,6 +8,7 @@ const Three_2 = dynamic(() => import('../components/three_2'), { ssr: false });
 const Three_3 = dynamic(() => import('../components/three_3'), { ssr: false });
 const Three_4 = dynamic(() => import('../components/three_4'), { ssr: false });
 const Three_5 = dynamic(() => import('../components/three_5'), { ssr: false });
+const Three_6 = dynamic(() => import('../components/three_6'), { ssr: false });
 
 export default function Home() {
   const [color, setColor] = useState(Math.floor(Math.random() * 16777215).toString(16));
@@ -27,6 +23,7 @@ export default function Home() {
       </Head>
 
       <div className=" bg-black w-full ">
+        <h1 className="text-white text-center -mb-8 pt-2 text-xs">Boilerplate</h1>
         <h1
           className="text-4xl md:text-6xl text-white text-center py-8 font-bold
         text-transparent bg-clip-text bg-gradient-to-br from-gray-600 to-white"
@@ -40,9 +37,9 @@ export default function Home() {
         onClick={() => setColor(Math.floor(Math.random() * 16777215).toString(16))}
       >
         <Three color={color} />
-        <div className="flex flex-col items-center p-12  absolute top-0">
-          <h1 className="text-white text-center -mb-12 text-xs">Created by someone in</h1>
-          <Image src={'/black.svg'} height="220" width="220" alt="black" />
+        <div className="flex flex-col items-center absolute top-0">
+          <h1 className="text-white text-center -mb-10 text-xs">Created by someone in</h1>
+          <Image src={'/black.svg'} height="180" width="180" alt="black" />
         </div>
       </div>
 
@@ -68,7 +65,7 @@ export default function Home() {
             className="text-6xl text-white py-8 font-bold
         text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-blue-400 self-start"
           >
-            Half width
+            半値幅
           </h1>
           <p className="text-black">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -89,7 +86,7 @@ export default function Home() {
             className="text-6xl text-white text-start py-8 font-bold
         text-transparent bg-clip-text bg-gradient-to-br from-[#aefbfd] to-[#FF99FF]"
           >
-            Half height + matcap + gsap
+            半分の高さ
           </h1>
           <p className="text-black">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -101,8 +98,8 @@ export default function Home() {
             software like Aldus PageMaker including versions of Lorem Ipsum.
           </p>
         </div>
-        <div className="h-px w-full bg-black mx-auto self-cente " />
-        <div className="h-2 w-full bg-black mx-auto self-center my-2" />
+        <div className="h-px w-full bg-gradient-to-l from-[#aefbfd] to-[#FF99FF] mx-auto self-cente " />
+        <div className="h-2 w-full bg-gradient-to-l from-[#aefbfd] to-[#FF99FF] mx-auto self-center my-2" />
         <div className="bg-gradient-to-l from-[#aefbfd] to-[#FF99FF]">
           <Three_3 />
         </div>
@@ -118,13 +115,13 @@ export default function Home() {
       >
         <div className="flex flex-col items-center md:w-1/2 px-12">
           <h1
-            className={`text-6xl py-8 font-bold self-start ${
+            className={`text-6xl py-8 font-black self-start ${
               lightsOn
                 ? 'text-black'
                 : 'text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-blue-400'
             }`}
           >
-            Half width
+            半値幅
           </h1>
           <p className={` ${lightsOn ? 'text-black' : 'text-white'}`}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -147,11 +144,29 @@ export default function Home() {
         <Three_4 lightsOn={lightsOn} />
       </div>
 
-      <div className="h-2 w-full bg-gradient-to-br from-pink-600 to-yellow-400 mx-auto self-cente my-2" />
-      <div className="h-[5px] w-full bg-gradient-to-br from-pink-600 to-yellow-400 mx-auto self-center" />
-      <div className="h-[3px] w-full bg-gradient-to-br from-pink-600 to-yellow-400 mx-auto self-center mt-1" />
+      <div className="h-2 w-full bg-black mx-auto self-cente my-2" />
+      <div className="h-[5px] w-full bg-black mx-auto self-center" />
+      <div className="h-[3px] w-full bg-black mx-auto self-center mt-1" />
       {/* Three_5 */}
 
+      <div
+        className={`flex w-full flex-col items-center justify-center overflow-hidden mt-12  px-12 text-black`}
+      >
+        <div className="flex flex-col md:flex-row justify-between items-center md:w-1/2 mb-12">
+          <h1 className={`text-6xl py-8 font-bold self-start mr-5`}>ああ</h1>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industrys standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting.
+          </p>
+        </div>
+        <div className="cursor-grab  ">
+          <Three_5 />
+        </div>
+      </div>
+
+      {/* Three_6 */}
       <div
         className={`flex w-full flex-col items-center justify-center overflow-hidden mt-12  px-12`}
       >
@@ -159,7 +174,7 @@ export default function Home() {
           <h1
             className={`text-6xl py-8 font-bold self-start text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-yellow-400 mr-5`}
           >
-            wow
+            わお
           </h1>
           <p className={`text-black`}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -168,8 +183,12 @@ export default function Home() {
             only five centuries, but also the leap into electronic typesetting.
           </p>
         </div>
-        <Three_5 />
+        <div className="cursor-grab ">
+          <Three_6 />
+        </div>
       </div>
+
+      {/* Footer */}
       <div className="bg-black  py-18 w-full flex justify-center items-center ">
         <a className="my-4" href="https://github.com/webdiego">
           <Image src={'/GitHub.svg'} height="42" width="42" alt="GitHub" />

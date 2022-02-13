@@ -22,8 +22,10 @@ export default function Three() {
     let controls = new OrbitControls(camera, canvas);
     controls.maxPolarAngle = Math.PI * 0.5;
     controls.minDistance = 2;
-    controls.maxDistance = 10;
+    controls.maxDistance = 7;
     controls.enableDamping = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1;
 
     gltfLoader.load('/model/moon/scene.gltf', (gltf) => {
       console.log(gltf);
@@ -56,9 +58,6 @@ export default function Three() {
 
     let tick = function () {
       requestAnimationFrame(tick);
-      camera.position.z -= 0.0005;
-      camera.position.x += 0.0005;
-
       controls.update();
       renderer.render(scene, camera);
     };
@@ -74,16 +73,6 @@ export default function Three() {
 
       // Update renderer
       renderer.setSize(sizes.width, sizes.height);
-    });
-
-    const cursor = {
-      x: 0,
-      y: 0,
-    };
-
-    window.addEventListener('mousemove', (event) => {
-      cursor.x = event.clientX / sizes.width - 0.5;
-      cursor.y = -(event.clientY / sizes.height - 0.5);
     });
 
     tick();
