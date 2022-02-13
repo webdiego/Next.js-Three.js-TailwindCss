@@ -8,14 +8,10 @@ const textureLoader = new THREE.TextureLoader();
 
 const P_1 = textureLoader.load('/points/circle_05.png');
 const P_2 = textureLoader.load('/points/window_02.png');
-
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
 export default function Three_4({ lightsOn }) {
-  const [_document, set_document] = React.useState(null)
-  React.useEffect(() => {
-    set_document(document)
-}, [])
   const canvasRef = useRef(null);
 
   let bg = lightsOn ? '#ffff' : '#000000';
@@ -35,12 +31,6 @@ export default function Three_4({ lightsOn }) {
   let bgParticles = color;
 
   useEffect(() => {
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
     const canvas = canvasRef.current;
 
     renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);

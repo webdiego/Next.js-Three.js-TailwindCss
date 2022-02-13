@@ -3,21 +3,13 @@ import * as THREE from 'three';
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
-
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 export default function Three() {
   const canvasRef = useRef(null);
-  const [_document, set_document] = React.useState(null)
-  React.useEffect(() => {
-    set_document(document)
-}, [])
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
+
     renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
     scene.background = new THREE.Color('0xffffff');
     canvas.appendChild(renderer.domElement);

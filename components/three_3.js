@@ -12,20 +12,17 @@ const M_4 = textureLoader.load('/matcap/M_4.png');
 
 const renderer = new THREE.WebGLRenderer();
 let controls;
+const camera = new THREE.PerspectiveCamera(
+  95,
+  window.innerWidth / (window.innerHeight / 2),
+  0.1,
+  1000
+);
 
 export default function Three_3() {
   const canvasRef = useRef(null);
-  const [_document, set_document] = React.useState(null)
-  React.useEffect(() => {
-    set_document(document)
-}, [])
+
   useEffect(() => {
-    const camera = new THREE.PerspectiveCamera(
-      95,
-      window.innerWidth / (window.innerHeight / 2),
-      0.1,
-      1000
-    );
     const canvas = canvasRef.current;
 
     renderer.setSize(window.innerWidth, window.innerHeight / 2);

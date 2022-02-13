@@ -2,29 +2,20 @@ import { useEffect, useRef, useState } from 'react';
 
 import * as THREE from 'three';
 if (typeof window !== 'undefined') {
-  console.log('You are on the browser')
+  console.log('You are on the browser');
   // ✅ Can use window here
 } else {
-  console.log('You are on the server')
+  console.log('You are on the server');
   // ⛔️ Don't use window here
 }
 const scene = new THREE.Scene();
-
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
 export default function Three({ color }) {
   const canvasRef = useRef(null);
-  const [_document, set_document] = React.useState(null)
-  React.useEffect(() => {
-    set_document(document)
-}, [])
+
   useEffect(() => {
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
     const canvas = canvasRef.current;
     renderer.setSize(window.innerWidth, window.innerHeight);
     canvas.appendChild(renderer.domElement);
