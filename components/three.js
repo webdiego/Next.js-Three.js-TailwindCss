@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
 import * as THREE from 'three';
-
+if (typeof window !== 'undefined') {
+  console.log('You are on the browser')
+  // ✅ Can use window here
+} else {
+  console.log('You are on the server')
+  // ⛔️ Don't use window here
+}
 const scene = new THREE.Scene();
 
 const renderer = new THREE.WebGLRenderer();
