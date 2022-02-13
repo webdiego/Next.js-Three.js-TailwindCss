@@ -1,11 +1,18 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Three from '../components/three';
-import Three_2 from '../components/three_2';
-import Three_3 from '../components/three_3';
-import Three_4 from '../components/three_4';
-import Three_5 from '../components/three_5';
+// import Three from '../components/three';
+// import Three_2 from '../components/three_2';
+// import Three_3 from '../components/three_3';
+// import Three_4 from '../components/three_4';
+// import Three_5 from '../components/three_5';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
+
+const Three = dynamic(() => import('../components/three'), { ssr: false });
+const Three_2 = dynamic(() => import('../components/three_2'), { ssr: false });
+const Three_3 = dynamic(() => import('../components/three_3'), { ssr: false });
+const Three_4 = dynamic(() => import('../components/three_4'), { ssr: false });
+const Three_5 = dynamic(() => import('../components/three_5'), { ssr: false });
 
 export default function Home() {
   const [color, setColor] = useState(Math.floor(Math.random() * 16777215).toString(16));
