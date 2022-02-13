@@ -10,7 +10,13 @@ export default function Three() {
   useEffect(() => {
     const canvas = canvasRef.current;
 
-    renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+    let iw = window.innerWidth;
+
+    if (iw >= 768) {
+      renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+    } else {
+      renderer.setSize(window.innerWidth, window.innerHeight / 2);
+    }
     scene.background = new THREE.Color('0xffffff');
     canvas.appendChild(renderer.domElement);
 

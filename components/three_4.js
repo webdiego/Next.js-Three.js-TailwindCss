@@ -31,8 +31,14 @@ export default function Three_4({ lightsOn }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    let iw = window.innerWidth;
 
-    renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+    if (iw >= 768) {
+      renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+    } else {
+      renderer.setSize(window.innerWidth, window.innerHeight / 2);
+    }
+
     scene.background = new THREE.Color(bg);
     canvas.appendChild(renderer.domElement);
     let controls = new OrbitControls(camera, canvas);
@@ -74,7 +80,7 @@ export default function Three_4({ lightsOn }) {
     camera.position.z = 3;
 
     const sizes = {
-      width: window.innerWidth / 2,
+      width: window.innerWidth,
       height: window.innerHeight / 2,
     };
 
