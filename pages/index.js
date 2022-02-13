@@ -4,6 +4,7 @@ import Three from '../components/three';
 import Three_2 from '../components/three_2';
 import Three_3 from '../components/three_3';
 import Three_4 from '../components/three_4';
+import Three_5 from '../components/three_5';
 import { useState } from 'react';
 
 export default function Home() {
@@ -135,6 +136,25 @@ export default function Home() {
           </div>
         </div>
         <Three_4 lightsOn={lightsOn} />
+      </div>
+
+      <div
+        className={`flex w-full flex-col items-center justify-center overflow-hidden my-12 py-4 `}
+      >
+        <div className="flex flex-row items-center md:w-2/3 ">
+          <h1
+            className={`text-6xl py-8 font-bold self-start text-transparent bg-clip-text bg-gradient-to-br from-pink-600 to-yellow-400`}
+          >
+            yeyeey
+          </h1>
+          <p className={`text-black`}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industrys standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting.
+          </p>
+        </div>
+        <Three_5 />
       </div>
     </div>
   );

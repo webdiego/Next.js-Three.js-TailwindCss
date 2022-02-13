@@ -78,7 +78,7 @@ export default function Three_4({ lightsOn }) {
       width: window.innerWidth / 2,
       height: window.innerHeight / 2,
     };
-    console.log(particles);
+
     let tick = function () {
       requestAnimationFrame(tick);
       particles.rotation.y += 0.005;
