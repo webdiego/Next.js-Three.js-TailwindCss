@@ -11,7 +11,10 @@ const P_1 = textureLoader.load('/points/circle_05.png');
 
 export default function Three() {
   const canvasRef = useRef(null);
-
+  const [_document, set_document] = React.useState(null);
+  React.useEffect(() => {
+    set_document(document);
+  }, []);
   useEffect(() => {
     const camera = new THREE.PerspectiveCamera(
       75,

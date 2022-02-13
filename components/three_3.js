@@ -15,7 +15,10 @@ let controls;
 
 export default function Three_3() {
   const canvasRef = useRef(null);
-
+  const [_document, set_document] = React.useState(null)
+  React.useEffect(() => {
+    set_document(document)
+}, [])
   useEffect(() => {
     const camera = new THREE.PerspectiveCamera(
       95,

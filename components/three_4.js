@@ -12,6 +12,10 @@ const P_2 = textureLoader.load('/points/window_02.png');
 const renderer = new THREE.WebGLRenderer();
 
 export default function Three_4({ lightsOn }) {
+  const [_document, set_document] = React.useState(null)
+  React.useEffect(() => {
+    set_document(document)
+}, [])
   const canvasRef = useRef(null);
 
   let bg = lightsOn ? '#ffff' : '#000000';

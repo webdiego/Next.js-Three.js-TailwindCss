@@ -6,7 +6,10 @@ const renderer = new THREE.WebGLRenderer();
 
 export default function Three() {
   const canvasRef = useRef(null);
-
+  const [_document, set_document] = React.useState(null)
+  React.useEffect(() => {
+    set_document(document)
+}, [])
   useEffect(() => {
     const canvas = canvasRef.current;
     const camera = new THREE.PerspectiveCamera(
